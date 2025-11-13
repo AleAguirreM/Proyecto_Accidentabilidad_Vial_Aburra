@@ -92,10 +92,9 @@ def mostrar_gravedad():
     # BARRA DE NAVEGACIÓN
     # ==========================================================
     generar_barra_navegacion()
-
-    # ==========================================================
-    # TÍTULOS
-    # ==========================================================
+# ==========================================================
+# TÍTULOS
+# ==========================================================
     st.markdown(
         """
         <div class="title-block">
@@ -107,3 +106,29 @@ def mostrar_gravedad():
         """,
         unsafe_allow_html=True,
     )
+# ==========================================================
+# VISUALIZACIONES
+# ==========================================================
+    st.markdown("---")
+    st.markdown(
+        "<h3 style='text-align:center;'>📊 Visualizaciones de la Gravedad de los Accidentes</h3>",
+        unsafe_allow_html=True
+    )
+
+    # Ruta a las imágenes de salida
+    GRAFICAS_DIR = PROJECT_ROOT / "ETL_MODULES" / "Transform" / "Graficas_Salida"
+
+    # Lista de las imágenes que se deben mostrar
+    imagenes = [
+        ("Distribución de accidentes por comuna", GRAFICAS_DIR / "GRAVEDAD_COMUNA.jpg"),
+        ("Relación entre la hora y el día de la semana", GRAFICAS_DIR / "HORA_D ASEMANA.jpg"),
+    ]
+
+    # Mostrar las imágenes en Streamlit
+    for titulo, ruta in imagenes:
+        if ruta.exists():
+            st.markdown(f"### {titulo}")
+            st.image(str(ruta), use_container_width=True)
+            st.markdown("<br>", unsafe_allow_html=True)
+        else:
+            st.warning(f"No se encontró la gráfica: {ruta.name}")
